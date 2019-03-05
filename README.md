@@ -65,7 +65,7 @@ Download the `ping_indentity.py` and place it, preferrably in a custom defined d
         product "access"
       </Module>
       <Module ping_identity>
-        url "https://127.0.0.1:3000/pa/heartbeat.ping"
+        url "https://127.0.0.1:9000/pa/heartbeat.ping"
         type "admin"
         product "access"
       </Module>

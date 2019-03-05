@@ -126,11 +126,10 @@ def logger(t, msg):
 #
 collectd.register_config(configure_callback)
 collectd.register_read(read_callback)
-
 #
 # DEBUG
 #
-# config_test = collectd.Config('<Module ping_identity> url "https://identity-management.aat.iag-aws.clients.amido.com:9031/pf/heartbeat.ping" type "engine" product "federate"</Module>')
+# config_test = collectd.Config('<Module ping_identity> url "https://127.0.0.1:9031/pf/heartbeat.ping" type "engine" product "federate"</Module>')
 # configure_callback(config_test);
 # read_callback();
 #
