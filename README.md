@@ -27,25 +27,25 @@ Enable detailed monitoring on the product you wish
   PingFederate:
   --- 
   Available from version (7.3.x) notes on setting up can be found [here](https://ping.force.com/Support/PingFederate/Administration/Enabling-heartbeat-in-PingFederate-7-3-and-above)
+
+  Only available for engine nodes of Ping Federate
+
+
 Pip dependencies: `requests`
 
 OPTIONS:
 ===
-`url`
-the heartbeat URL 
+`url`  - the heartbeat URL should contain the ```proto//fqdn||ip:port/heartbeatpath```
 
-`type`
-accepted values `admin` || `engine`
+`type` - accepted values `admin` || `engine`
 
-`product`
-accepted values `access` || `federate`
+`product` - accepted values `access` || `federate`
 
 USAGE:
 ===
-
 Download the `ping_indentity.py` and place it, preferrably in a custom defined diretory to avoid collectd python package clashes e.g. `/var/my/collectd/modules/` 
 
-```
+```XML
   <LoadPlugin python>
     Globals true
   </LoadPlugin>
@@ -53,7 +53,7 @@ Download the `ping_indentity.py` and place it, preferrably in a custom defined d
       ModulePath "/var/my/collectd/modules/"
       LogTraces true
       Interactive false
-      Import "ping_access"
+      Import "ping_identity"
       <Module ping_identity>
         url "https://private.remote.ping-fed.local:9031/pf/heartbeat.ping"
         type "engine"
@@ -64,10 +64,15 @@ Download the `ping_indentity.py` and place it, preferrably in a custom defined d
         type "engine"
         product "access"
       </Module>
+      <Module ping_identity>
+        url "https://127.0.0.1:3000/pa/heartbeat.ping"
+        type "admin"
+        product "access"
+      </Module>
   </Plugin>
 ```
 
-The plugin by default accepts all the outputted metrics from the end point so you should enable/disable in PA the ones you wish you use.
+The plugin by default accepts most metrics, though you should enable/disable the ones you wish you use - refer to the templates.
 
 `Hostname`  and `LastRefreshTime` are ignored by design.
 
