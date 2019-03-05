@@ -7,11 +7,10 @@ Collects metrics from heart beat endpoint for Ping Access and Ping Federate and 
 import collectd
 import requests, json
 import urllib3
-from Carbon.Aliases import false
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 NAME = 'ping_identity'
-VERBOSE_LOGGING = True
+VERBOSE_LOGGING = False
 DEFAULT_HEARTBEAT_URL = 'https://127.0.0.1:9000/pa/heartbeat.ping'
 DEFAULT_INSTANCE = 'engine'
 DEFAULT_PRODUCT = 'access'
@@ -83,11 +82,8 @@ def get_stats(conf):
 def read_callback():
     logger('verb', "beginning read_callback")
 
-    logger('verb', "count configs %s" %  len(CONFIGS))
-
     for conf in CONFIGS:
         info = get_stats(conf)
-        # logger('verb', "info %s" % json.dumps(info))
 
         if not info:
             logger('warn', "%s: No data received" % NAME)

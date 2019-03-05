@@ -75,4 +75,3 @@ Download the `ping_indentity.py` and place it, preferrably in a custom defined d
 The plugin by default accepts most metrics, though you should enable/disable the ones you wish you use - refer to the templates.
 
 `Hostname`  and `LastRefreshTime` are ignored by design.
-
