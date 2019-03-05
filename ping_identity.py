@@ -98,11 +98,6 @@ def read_callback():
                 if key in METRIC_TYPES:
                     key_root, val_type = METRIC_TYPES[key]
                     clean_value = '0.00' if value.split(' ')[0] == 'N/A' else  value.split(' ')[0]
-                    logger('verb', "value %s" % value.split(' ')[0] )
-                    logger('verb', "type_instance %s" % conf['type'] + "." + key_root )
-                    logger('verb', "plugin %s" % NAME )
-                    logger('verb', "plugin_instance %s" % "ping-" + conf['product'] )
-                    logger('verb', "type %s" % val_type )
                     val = collectd.Values(plugin=NAME, type=val_type, plugin_instance="ping-" + conf['product'])
                     val.type_instance = conf['type'] + "." + key_root
                     val.values = [ clean_value ]
