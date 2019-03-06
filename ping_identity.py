@@ -5,7 +5,8 @@ Collects metrics from heart beat endpoint for Ping Access and Ping Federate and 
 # Logging func taken from https://github.com/mleinart/collectd-haproxy
 
 import collectd
-import requests, json
+import json
+import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -37,10 +38,10 @@ METRIC_NA = {
 }
 
 HEADER = {
-        'Accept': "Content-Type,Authorization,Cache-Control",
-        'Content-Type': "application/json",
-        'X-Xsrf-Header': "PingIdentity",
-        'Cache-Control': "no-cache"
+    'Accept': "Content-Type,Authorization,Cache-Control",
+    'Content-Type': "application/json",
+    'X-Xsrf-Header': "PingIdentity",
+    'Cache-Control': "no-cache"
 }
 
 
@@ -71,7 +72,8 @@ def get_stats(conf):
     # logger('info', "HEARTBEAT_URL: %s" % HEARTBEAT_URL )
     try:
         r = requests.request('GET', _conf['url'], headers=HEADER, verify=False)
-        stats = json.loads(r.content)
+        stats = r.json()
+        # stats = json.loads(r.content)
     except Exception as e:
         logger('warn', "Unable to retrieve stats: %s" % e.message)
         return stats
@@ -123,4 +125,5 @@ collectd.register_read(read_callback)
 # config_test = collectd.Config('<Module ping_identity> url "https://127.0.0.1:9031/pf/heartbeat.ping" type "engine" product "federate"</Module>')
 # configure_callback(config_test);
 # read_callback();
+# get_stats(None);
 #

@@ -11,7 +11,7 @@ currently only enabled for Ping Access and PingFederate
 PRE-REQUISITES:
 ===
 
-Enable detailed monitoring on the product you wish
+Enable detailed monitoring on the product you wish to monitor, examples and notes aroun the supported products below.
 
   PingAccess:
   ---
@@ -31,7 +31,7 @@ Enable detailed monitoring on the product you wish
   Only available for engine nodes of Ping Federate
 
 
-Pip dependencies: `requests`
+  Pip dependencies: `requests` (though this package is part of the distutils so no need to install it specifically from python 2.7)
 
 OPTIONS:
 ===
@@ -75,3 +75,16 @@ Download the `ping_indentity.py` and place it, preferrably in a custom defined d
 The plugin by default accepts most metrics, though you should enable/disable the ones you wish you use - refer to the templates.
 
 `Hostname`  and `LastRefreshTime` are ignored by design.
+
+SAMPLE OUTPUT:
+===
+
+Using collectd writers you can write a number of systems, examples below are using the cloudwatch.
+
+Ping Access Memory
+
+
+Ping Access CPU
+
+Ping Access Applications/OpenConnections
+
