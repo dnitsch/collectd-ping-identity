@@ -45,6 +45,40 @@ USAGE:
 ===
 Download the `ping_indentity.py` and place it, preferrably in a custom defined diretory to avoid collectd python package clashes e.g. `/var/my/collectd/modules/` 
 
+because of the nature of HTTP heartbeat endpoint - you could elect single master monitoring node that will query all the others, however it is much more common (adviseable) to have the collectd agent per node - [config scenarios](####Scenarios) are covered below.
+
+
+#### Scenarios
+##### Standalone mode PA
+
+PA outputs monitoring on both engine and admin nodes, in cases where you are running PA in standalone mode you will have 
+
+```XML
+  <LoadPlugin python>
+    Globals true
+  </LoadPlugin>
+  <Plugin python>
+      ModulePath "/var/my/collectd/modules/"
+      LogTraces true
+      Interactive false
+      Import "ping_identity"
+      <Module ping_identity>
+        url "https://127.0.0.1:3000/pa/heartbeat.ping"
+        type "engine"
+        product "access"
+      </Module>
+      <Module ping_identity>
+        url "https://127.0.0.1:9000/pa/heartbeat.ping"
+        type "admin"
+        product "access"
+      </Module>
+  </Plugin>
+```
+
+
+
+##### Aggregate mode PF remote and PA local
+
 ```XML
   <LoadPlugin python>
     Globals true
@@ -86,5 +120,15 @@ Ping Access Memory
 
 Ping Access CPU
 
+[1]: https://i.ibb.co/VD94Bff/Screenshot-2019-03-05-at-14-25-46.png
+[2]: https://i.ibb.co/8KL1LvB/Screenshot-2019-03-05-at-14-19-36.png
+![1]
+
+![2]
+
 Ping Access Applications/OpenConnections
 
+
+NOTES:
+===
+SELinux needs to be run in `Permissive` or `Disabled` mode 
